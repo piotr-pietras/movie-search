@@ -1,0 +1,43 @@
+.MoviePoster {
+    width: var(--poster-width);
+    padding: 10px;
+    margin: 10px;
+
+    background-color: var(--poster-bck-color);
+    border-radius: 10px;
+}
+
+.MoviePoster:hover {
+    transition: all 0.25s;
+    transform: scale(1.025)
+}
+
+.MoviePoster-container {
+    display: flex;
+    border: 1px solid var(--poster-field-color);
+    border-radius: 5px;
+}
+
+.MoviePoster-container legend {
+    font-size: 1.5em;
+    font-style: italic;
+    color: var(--poster-legend-color);
+}
+
+.MoviePoster-img {
+    width: 60%;
+}
+
+.MoviePoster-img img{
+    width: 100%;
+}
+
+.MoviePoster-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40%;
+    padding: 10px;
+
+    color: grey;
+}
