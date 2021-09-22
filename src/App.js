@@ -1,20 +1,27 @@
 import './App.css';
 import MoviePoster from './component/moviePoster/MoviePoster';
+
 import {IoLibrary} from 'react-icons/io5'
 import { useState } from 'react';
+import { useCookies } from 'react-cookie';
+
 import { loading } from './state/action-creators/loadingAction'
-import { useSelector, useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 
 function App() {
   const [title, setTitle] = useState('')
   const [searchResult, setSearchResult] = useState([])
 
+  const [cookies, setCookies] = useCookies(['favorites']);
+
   const dispatch = useDispatch()
+
   //----------------------------------------------------------------
   //Components functions
   //----------------------------------------------------------------
   const findMovie = (title) => {
     dispatch(loading(true))
+
     askToFindMovie(title)
       .then((respond) => {
         console.log(respond.Search) //dev log
@@ -23,6 +30,7 @@ function App() {
           setSearchResult(respond.Search)
           setTimeout(() => dispatch(loading(false)), 500)
         }else {
+          setSearchResult([])
           alert(`${respond.Error} :<`)
           setTimeout(() => dispatch(loading(false)), 500)
         }
@@ -53,7 +61,7 @@ function App() {
 
       <div className="App-search">
         <input type="text"
-        placeholder="Enter movie title you are looking for"
+        placeholder="Enter movie's title"
         value={title}
         onChange={(e) => {
           setTitle(e.target.value)
@@ -63,6 +71,11 @@ function App() {
         <button
         onClick={() => findMovie(title)}>
           search
+        </button>
+
+        <button
+        onClick={() => setCookies('favorites', [], { path: '/'})}>
+          clr(DEV)
         </button>
       </div>
 

@@ -1,5 +1,5 @@
 :root {
-    --poster-width: 350px;
+    --poster-width: 300px;
     --poster-bck-color: rgba(0, 0, 0, 0.7);
     --poster-field-color: rgb(102, 102, 102);
     --poster-legend-color: rgb(255, 255, 255);
@@ -36,11 +36,13 @@
 
 .App-search {
     display: flex;
+    align-items: center;
     justify-content: center;
 }
 
 .App-search >* {
     margin: 5px;
+    font-size: 1.25em;
 }
 
 .App-search input {
@@ -48,9 +50,14 @@
     max-width: 220px;
 }
 
+.App-search input:hover {
+
+}
+
 .App-posters {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     width: 100%;
 }
