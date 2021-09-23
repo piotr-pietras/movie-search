@@ -1,4 +1,5 @@
 import './App.css';
+import './variables.css'
 import MoviePoster from './component/moviePoster/MoviePoster';
 import MovieLibrary from './component/movieLibrary/MovieLibrary';
 
@@ -17,8 +18,6 @@ function App() {
   const [title, setTitle] = useState('')
   const [searchResult, setSearchResult] = useState([])
 
-  const [cookies, setCookies] = useCookies(['favorites']);
-
   const dispatch = useDispatch()
 
   //----------------------------------------------------------------
@@ -26,10 +25,10 @@ function App() {
   //----------------------------------------------------------------
   const findMovies = (title) => {
     dispatch(loading(true))
+    setSearchResult([])
 
     omdbFindByTitle(title)
       .then((respond) => {
-        //console.log(respond.Search) //dev log
         setSearchResult(respond.Search)
         setTimeout(() => dispatch(loading(false)), 500)
       })
@@ -62,22 +61,10 @@ function App() {
         onClick={() => findMovies(title)}>
           search
         </button>
-
-        <button
-        onClick={() => console.log(cookies.favorites)}>
-          chck(DEV)
-        </button>
-
-        <button
-        onClick={() => setCookies('favorites', undefined, { path: '/'})
-        //removeCookies()
-        }>
-          clr(DEV)
-        </button>
       </div>
 
       <div className="App-posters">
-        {searchResult.map((poster) => 
+        {searchResult && searchResult.map((poster) => 
           <MoviePoster 
           key={poster.imdbID}
           poster={poster}/>

@@ -26,13 +26,7 @@
 }
 
 .MoviePoster-img {
-    display: flex;
-    align-items: center;
     width: 60%;
-}
-
-.MoviePoster-img img{
-    width: 100%;
 }
 
 .MoviePoster-info {
@@ -46,10 +40,10 @@
 }
 
 .MoviePoster-favorite {
-    opacity: 0.5;
+    opacity: var(--icon-opacity-b);
 }
 
 .MoviePoster-favorite:hover {
-    opacity: 1;
+    opacity: var(--icon-opacity-a);;
     cursor: pointer;
 }

@@ -1,5 +1,5 @@
 import './moviePoster.css';
-import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 
 import { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
@@ -14,12 +14,12 @@ const MoviePoster = ({ poster }) => {
     //----------------------------------------------------------------
     const toggleFavorite = () => {
         if(isFavorite) 
-            setCookies('favorites', JSON.stringify(cookies.favorites.filter(fav => poster.imdbID !== fav.imdbID)), { path: '/'})
+            setCookies('favorites', cookies.favorites.filter(fav => poster.imdbID !== fav.imdbID), { path: '/'})
         else 
             if(cookies.favorites)
-                setCookies('favorites', JSON.stringify([...cookies.favorites, {imdbID: poster.imdbID}]), { path: '/'})
+                setCookies('favorites', [...cookies.favorites, {imdbID: poster.imdbID}], { path: '/'})
             else 
-                setCookies('favorites', JSON.stringify([{imdbID: poster.imdbID}]), { path: '/'})
+                setCookies('favorites', [{imdbID: poster.imdbID}], { path: '/'})
         
         setIsFavorite(!isFavorite)
     }
@@ -35,9 +35,9 @@ const MoviePoster = ({ poster }) => {
             <fieldset className="MoviePoster-container"> 
                 <legend>{poster.Title}</legend>
 
-                <div className="MoviePoster-img">
-                    <img alt="poster" src={ poster.Poster} />
-                </div>
+                <img className="MoviePoster-img"
+                alt="poster" 
+                src={ poster.Poster} />
 
                 <div className="MoviePoster-info">
                     <div>{`year: ${poster.Year}`}</div>
@@ -49,8 +49,8 @@ const MoviePoster = ({ poster }) => {
                     <div className="MoviePoster-favorite" 
                     onClick={() => toggleFavorite()}>
                         {isFavorite 
-                            ?<AiFillStar size={'100px'} color="yellow"/>
-                            :<AiOutlineStar size={'100px'}/>}
+                            ?<AiFillHeart size={'100px'} color="red"/>
+                            :<AiOutlineHeart size={'100px'}/>}
                             
                     </div>
                 </div>

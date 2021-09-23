@@ -1,0 +1,18 @@
+:root {
+    --bck-color:rgba(0, 0, 0, 0.3);
+
+    --panel-color: rgba(128, 128, 128, 0.8);
+
+    --icon-color: rgba(255, 255, 255, 1);
+    --icon-opacity-b: 0.5;
+    --icon-opacity-a: 0.8;
+    --icon-tranform-hover: scale(1.1);
+
+    --poster-width: 300px;
+    --poster-bck-color: rgba(0, 0, 0, 0.7);
+    --poster-field-border-color: rgb(102, 102, 102);
+    --poster-legend-color: rgb(255, 255, 255);
+
+    --library-favorite-bck-color: var(--poster-bck-color);
+    --library-container-color: rgba(255, 1, 128, 0.4);
+}

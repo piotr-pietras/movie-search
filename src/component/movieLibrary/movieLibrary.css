@@ -12,7 +12,7 @@
 }
 
 .MovieLibrary-header {
-    height: 60px;
+    height: 70px;
     display: flex;
 
     text-align: center;
@@ -26,32 +26,89 @@
     left: 10px;
     
     color: var(--icon-color);
+    opacity: var(--icon-opacity-b);
 }
 
 .MovieLibrary-back:hover {
     cursor: pointer;
-    color: var(--icon-color-hover);
+    opacity: var(--icon-opacity-a);
     transform: var(--icon-tranform-hover);
 }
 
-.MovieLibrary-selected {
+.MovieLibrary-body {
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
 
     flex-grow: 1;
     transition: all 1s;
+
+    border-top: 2px solid black;
 }
 
-.MovieLibrary-selected:hover {
-    flex-grow: 3;
+.MovieLibrary-body:hover {
+    flex-grow: 2;
+    background-color: var(--library-container-color);
+    transition: all 1s;
+}
+
+.MovieLibrary-img {
+    height: 30vh;
+}
+
+.MovieLibrary-controlers {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+}
+
+.MovieLibrary-controlers >* {
+    margin: 20px;
+    cursor: pointer;
+    color: var(--icon-color);
+    opacity: var(--icon-opacity-b);
+}
+
+.MovieLibrary-watched:hover {
+    color: green;
+    opacity: var(--icon-opacity-a);
+    transform: var(--icon-tranform-hover);
+}
+
+.MovieLibrary-delete:hover {
+    color: red;
+    opacity: var(--icon-opacity-a);
+    transform: var(--icon-tranform-hover);
+}
+
+.MovieLibrary-info {
+    height: 5%;
+    width: 100%;
+
+    color: grey;
+    font-style: italic;
+    font-size: 2vh;
+
+    overflow: auto;
+
+    flex-grow: 1;
+    transition: all 1s;
+
+    border-top: 2px solid black;
+}
+
+.MovieLibrary-info:hover {
+    color: white;
+    flex-grow: 10;
+    background-color: var(--library-container-color);
     transition: all 1s;
 }
 
 .MovieLibrary-container {
-    height: 10%;
+    height: 20%;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -62,11 +119,11 @@
     flex-grow: 1;
     transition: all 1s;
 
-    border-top: 1px solid;
+    border-top: 2px solid black;
 }
 
 .MovieLibrary-container:hover {
-    flex-grow: 3;
-    background-color: var(--library-favorite-container-color);
+    flex-grow: 10;
+    background-color: var(--library-container-color);
     transition: all 1s;
 }
