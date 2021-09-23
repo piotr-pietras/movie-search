@@ -1,0 +1,31 @@
+.MovieFavorite {
+    width: 125px;
+    padding: 5px;
+    margin:5px;
+    
+    background-color: var(--library-favorite-bck-color1);
+    border-radius: 5px;
+}
+
+.MovieFavorite:hover {
+    cursor: pointer;
+    transition: all 0.25s;
+    transform: scale(1.025)
+}
+
+.MovieFavorite-container {
+    display: flex;
+
+    border: 1px solid var(--library-field-border-color);
+    border-radius: 5px;
+}
+
+.MovieFavorite-container legend{
+    font-size: 0.8em;
+    font-style: italic;
+    color: white;
+}
+
+.MovieFavorite-container img{
+    width: 100%;
+}

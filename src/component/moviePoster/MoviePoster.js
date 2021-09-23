@@ -17,17 +17,17 @@ const MoviePoster = ({ poster }) => {
             setCookies('favorites', JSON.stringify(cookies.favorites.filter(fav => poster.imdbID !== fav.imdbID)), { path: '/'})
         else 
             if(cookies.favorites)
-                setCookies('favorites', JSON.stringify([...cookies.favorites, poster]), { path: '/'})
+                setCookies('favorites', JSON.stringify([...cookies.favorites, {imdbID: poster.imdbID}]), { path: '/'})
             else 
-                setCookies('favorites', JSON.stringify([poster]), { path: '/'})
+                setCookies('favorites', JSON.stringify([{imdbID: poster.imdbID}]), { path: '/'})
         
         setIsFavorite(!isFavorite)
     }
 
     useEffect(() => {
         if(cookies.favorites) 
-            cookies.favorites.map(fav => poster.imdbID === fav.imdbID && setIsFavorite(true))
-    }, [])
+            cookies.favorites.map(fav => poster.imdbID === fav.imdbID && setIsFavorite(true)) // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) 
 
     //----------------------------------------------------------------
     return(
@@ -42,9 +42,9 @@ const MoviePoster = ({ poster }) => {
                 <div className="MoviePoster-info">
                     <div>{`year: ${poster.Year}`}</div>
 
-                    <div>{`time: ${poster.Runtime}`}</div>
+                    <div>{`type: ${poster.Type}`}</div>
 
-                    <div>{`writer: ${poster.Writer}`}</div>
+                    <div>{`imdbID: ${poster.imdbID}`}</div>
                    
                     <div className="MoviePoster-favorite" 
                     onClick={() => toggleFavorite()}>

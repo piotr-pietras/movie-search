@@ -3,72 +3,41 @@ import MoviePoster from './component/moviePoster/MoviePoster';
 import MovieLibrary from './component/movieLibrary/MovieLibrary';
 
 import {IoLibrary} from 'react-icons/io5'
-import { useState, useEffect } from 'react';
+import { useState, } from 'react';
 import { useCookies } from 'react-cookie';
 
 import { loading } from './state/action-creators/loadingAction'
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { Link, Route } from 'react-router-dom';
+
+import { omdbFindByTitle } from './req/omdbReq'
 
 function App() {
   const [title, setTitle] = useState('')
   const [searchResult, setSearchResult] = useState([])
 
-  const [cookies, setCookies, removeCookies] = useCookies(['favorites']);
+  const [cookies, setCookies] = useCookies(['favorites']);
 
   const dispatch = useDispatch()
 
   //----------------------------------------------------------------
   //Components functions
   //----------------------------------------------------------------
-  const findMovie = (title) => {
+  const findMovies = (title) => {
     dispatch(loading(true))
 
-    //Ask to find movies by title
-    askToFindMovies(title)
+    omdbFindByTitle(title)
       .then((respond) => {
-        console.log(respond.Search) //dev log
-
-        //If any movie is found asks server for their extra info by id
-        if(respond.Response === "True"){
-          const buffer = []
-          respond.Search.map((movie, index) => {
-            askToExtendeMovieInfo(movie.imdbID)
-              .then((info) => {
-                buffer[index] = info
-
-                //If every movie was asked for extra info updates site
-                if(buffer.length >= respond.Search.length)
-                  setSearchResult(buffer)    
-              })
-              .catch((err) => alert(err))
-          })
-          setTimeout(() => dispatch(loading(false)), 500)
-        } else {
-          setSearchResult([])
-          alert(`${respond.Error} :<`)
-          setTimeout(() => dispatch(loading(false)), 500)
-        }
+        //console.log(respond.Search) //dev log
+        setSearchResult(respond.Search)
+        setTimeout(() => dispatch(loading(false)), 500)
       })
       .catch((err) => {
         alert(err)
+        setTimeout(() => dispatch(loading(false)), 500)
       })
   }
-
-  //----------------------------------------------------------------
-  //Server's requests
-  //----------------------------------------------------------------
-  const askToFindMovies = async (title) => {
-    const respond = await fetch(`http://www.omdbapi.com/?s=${title}&apikey=83b9aeb1`)
-    return respond.json()
-  }
-
-  const askToExtendeMovieInfo = async (imdbID) => {
-    const respond = await fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=83b9aeb1`)
-    return respond.json()
-  }
-
 
   //----------------------------------------------------------------
   return (
@@ -90,7 +59,7 @@ function App() {
         />
 
         <button
-        onClick={() => findMovie(title)}>
+        onClick={() => findMovies(title)}>
           search
         </button>
 

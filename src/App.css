@@ -1,10 +1,20 @@
 :root {
     --bck-color:rgba(0, 0, 0, 0.3);
 
+    --panel-color: rgba(128, 128, 128, 0.8);
+
+    --icon-color: rgba(255, 255, 255, 0.5);
+    --icon-color-hover: rgba(255, 255, 255, 0.8);
+    --icon-tranform-hover: scale(1.05);
+
     --poster-width: 300px;
     --poster-bck-color: rgba(0, 0, 0, 0.7);
-    --poster-field-color: rgb(102, 102, 102);
+    --poster-field-border-color: rgb(102, 102, 102);
     --poster-legend-color: rgb(255, 255, 255);
+
+    --library-favorite-bck-color1: var(--poster-bck-color);
+    --library-favorite-bck-color2: rgba(36, 12, 12, 0.7);
+    --library-favorite-container-color: rgba(255, 1, 128, 0.7);
 }
 
 .App {
@@ -27,13 +37,13 @@
     top: 15px;
     right: 15px;
 
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--icon-color);
 }
 
 .App-library:hover {
     cursor: pointer;
-    transform: scale(1.05);
-    color: rgba(255, 255, 255, 0.8);
+    transform: var(--icon-tranform-hover);
+    color: var(--icon-color-hover);
 }
 
 .App-search {
@@ -50,10 +60,6 @@
 .App-search input {
     width: 80%;
     max-width: 220px;
-}
-
-.App-search input:hover {
-
 }
 
 .App-posters {

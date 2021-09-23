@@ -15,7 +15,7 @@
 .MoviePoster-container {
     display: flex;
 
-    border: 1px solid var(--poster-field-color);
+    border: 1px solid var(--poster-field-border-color);
     border-radius: 5px;
 }
 

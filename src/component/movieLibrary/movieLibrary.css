@@ -1,7 +1,72 @@
 .MovieLibrary {
-    position: absolute;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
     top: 0; right: 0; bottom: 0; left: 0;
 
     background-color: var(--bck-color);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
+}
+
+.MovieLibrary-header {
+    height: 60px;
+    display: flex;
+
+    text-align: center;
+    font-style: italic;
+    color: white;
+}
+
+.MovieLibrary-back {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    
+    color: var(--icon-color);
+}
+
+.MovieLibrary-back:hover {
+    cursor: pointer;
+    color: var(--icon-color-hover);
+    transform: var(--icon-tranform-hover);
+}
+
+.MovieLibrary-selected {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    flex-grow: 1;
+    transition: all 1s;
+}
+
+.MovieLibrary-selected:hover {
+    flex-grow: 3;
+    transition: all 1s;
+}
+
+.MovieLibrary-container {
+    height: 10%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    overflow: auto;
+
+    flex-grow: 1;
+    transition: all 1s;
+
+    border-top: 1px solid;
+}
+
+.MovieLibrary-container:hover {
+    flex-grow: 3;
+    background-color: var(--library-favorite-container-color);
+    transition: all 1s;
 }
