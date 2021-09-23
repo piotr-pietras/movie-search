@@ -13,15 +13,22 @@ const MoviePoster = ({ poster }) => {
     //Components functions
     //----------------------------------------------------------------
     const toggleFavorite = () => {
-        if(isFavorite) setCookies('favorites', cookies.favorites.filter(fav => poster.imdbID !== fav.imdbID), { path: '/'})
-        else setCookies('favorites', [...cookies.favorites, poster], { path: '/'})
-
+        if(isFavorite) 
+            setCookies('favorites', JSON.stringify(cookies.favorites.filter(fav => poster.imdbID !== fav.imdbID)), { path: '/'})
+        else 
+            if(cookies.favorites)
+                setCookies('favorites', JSON.stringify([...cookies.favorites, poster]), { path: '/'})
+            else 
+                setCookies('favorites', JSON.stringify([poster]), { path: '/'})
+        
         setIsFavorite(!isFavorite)
     }
 
     useEffect(() => {
-        cookies.favorites.map(fav => poster.imdbID === fav.imdbID && setIsFavorite(true))
-    })
+        if(cookies.favorites) 
+            cookies.favorites.map(fav => poster.imdbID === fav.imdbID && setIsFavorite(true))
+    }, [])
+
     //----------------------------------------------------------------
     return(
         <div className="MoviePoster">
@@ -33,9 +40,11 @@ const MoviePoster = ({ poster }) => {
                 </div>
 
                 <div className="MoviePoster-info">
-                    <div>{`type: ${poster.Type}`}</div>
-                    
                     <div>{`year: ${poster.Year}`}</div>
+
+                    <div>{`time: ${poster.Runtime}`}</div>
+
+                    <div>{`writer: ${poster.Writer}`}</div>
                    
                     <div className="MoviePoster-favorite" 
                     onClick={() => toggleFavorite()}>

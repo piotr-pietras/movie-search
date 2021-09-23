@@ -1,4 +1,6 @@
 :root {
+    --bck-color:rgba(0, 0, 0, 0.3);
+
     --poster-width: 300px;
     --poster-bck-color: rgba(0, 0, 0, 0.7);
     --poster-field-color: rgb(102, 102, 102);

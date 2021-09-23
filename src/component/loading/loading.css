@@ -12,9 +12,8 @@
     justify-content: center;
     
     z-index: 99999;
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
+    background-color: var(--bck-color);
+    backdrop-filter: blur(10px);
 }
 
 .Loading-arrow {

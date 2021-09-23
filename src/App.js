@@ -1,18 +1,21 @@
 import './App.css';
 import MoviePoster from './component/moviePoster/MoviePoster';
+import MovieLibrary from './component/movieLibrary/MovieLibrary';
 
 import {IoLibrary} from 'react-icons/io5'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 
 import { loading } from './state/action-creators/loadingAction'
 import { useDispatch} from 'react-redux';
 
+import { Link, Route } from 'react-router-dom';
+
 function App() {
   const [title, setTitle] = useState('')
   const [searchResult, setSearchResult] = useState([])
 
-  const [cookies, setCookies] = useCookies(['favorites']);
+  const [cookies, setCookies, removeCookies] = useCookies(['favorites']);
 
   const dispatch = useDispatch()
 
@@ -22,14 +25,27 @@ function App() {
   const findMovie = (title) => {
     dispatch(loading(true))
 
-    askToFindMovie(title)
+    //Ask to find movies by title
+    askToFindMovies(title)
       .then((respond) => {
         console.log(respond.Search) //dev log
 
+        //If any movie is found asks server for their extra info by id
         if(respond.Response === "True"){
-          setSearchResult(respond.Search)
+          const buffer = []
+          respond.Search.map((movie, index) => {
+            askToExtendeMovieInfo(movie.imdbID)
+              .then((info) => {
+                buffer[index] = info
+
+                //If every movie was asked for extra info updates site
+                if(buffer.length >= respond.Search.length)
+                  setSearchResult(buffer)    
+              })
+              .catch((err) => alert(err))
+          })
           setTimeout(() => dispatch(loading(false)), 500)
-        }else {
+        } else {
           setSearchResult([])
           alert(`${respond.Error} :<`)
           setTimeout(() => dispatch(loading(false)), 500)
@@ -43,21 +59,26 @@ function App() {
   //----------------------------------------------------------------
   //Server's requests
   //----------------------------------------------------------------
-  const askToFindMovie = async (title) => {
+  const askToFindMovies = async (title) => {
     const respond = await fetch(`http://www.omdbapi.com/?s=${title}&apikey=83b9aeb1`)
     return respond.json()
   }
-  
+
+  const askToExtendeMovieInfo = async (imdbID) => {
+    const respond = await fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=83b9aeb1`)
+    return respond.json()
+  }
+
+
+  //----------------------------------------------------------------
   return (
     <div className="App">
-
-
       <div className="App-header"></div>
 
-      <IoLibrary className="App-library"
-      size={'60px'}
-      onClick={() => console.log("test")}/>
-
+      <Link to='/library/'> 
+        <IoLibrary className="App-library"
+        size={'60px'}/>
+      </Link>
 
       <div className="App-search">
         <input type="text"
@@ -74,7 +95,14 @@ function App() {
         </button>
 
         <button
-        onClick={() => setCookies('favorites', [], { path: '/'})}>
+        onClick={() => console.log(cookies.favorites)}>
+          chck(DEV)
+        </button>
+
+        <button
+        onClick={() => setCookies('favorites', undefined, { path: '/'})
+        //removeCookies()
+        }>
           clr(DEV)
         </button>
       </div>
@@ -86,6 +114,11 @@ function App() {
           poster={poster}/>
         )}
       </div>
+
+
+      <Route path="/library/">
+        <MovieLibrary />
+      </Route>
     </div>
   );
 }
