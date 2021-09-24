@@ -122,7 +122,7 @@ const MovieLibrary = ({ backRefresh }) => {
                 </div>}
 
                 {selectedMovie && <div className="MovieLibrary-info">
-                    <p>{`Score: ${selectedMovie.Ratings[0] && selectedMovie.Ratings[0].Value} / 100`}</p>
+                    <p>{`Score: ${selectedMovie.Ratings[0] && selectedMovie.Ratings[0].Value}`}</p>
                     <p>{`Year: ${selectedMovie.Year}`}</p>
                     <p>{`Genre: ${selectedMovie.Genre}`}</p>
                     <p>{`Runtime: ${selectedMovie.Runtime}`}</p>
