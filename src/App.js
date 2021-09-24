@@ -2,11 +2,9 @@ import './App.css';
 import './variables.css'
 import MoviePoster from './component/moviePoster/MoviePoster';
 import MovieLibrary from './component/movieLibrary/MovieLibrary';
-
 import {IoLibrary} from 'react-icons/io5'
-import { useState, } from 'react';
-import { useCookies } from 'react-cookie';
 
+import { useState, } from 'react';
 import { loading } from './state/action-creators/loadingAction'
 import { useDispatch } from 'react-redux';
 
@@ -23,7 +21,8 @@ function App() {
   //----------------------------------------------------------------
   //Components functions
   //----------------------------------------------------------------
-  const findMovies = (title) => {
+  //Asks server to find movies by given title and updates state
+  const findMovies = () => {
     dispatch(loading(true))
     setSearchResult([])
 
@@ -33,7 +32,7 @@ function App() {
         setTimeout(() => dispatch(loading(false)), 500)
       })
       .catch((err) => {
-        alert(err)
+        console.log(err.message)
         setTimeout(() => dispatch(loading(false)), 500)
       })
   }
@@ -44,36 +43,27 @@ function App() {
       <div className="App-header"></div>
 
       <Link to='/library/'> 
-        <IoLibrary className="App-library"
-        size={'60px'}/>
+        <IoLibrary className="App-library" size={'60px'}/>
       </Link>
 
       <div className="App-search">
         <input type="text"
         placeholder="Enter movie's title"
         value={title}
-        onChange={(e) => {
-          setTitle(e.target.value)
-        }}
-        />
+        onChange={e => setTitle(e.target.value)}/>
 
-        <button
-        onClick={() => findMovies(title)}>
+        <button onClick={() => findMovies()}>
           search
         </button>
       </div>
 
-      <div className="App-posters">
-        {searchResult && searchResult.map((poster) => 
-          <MoviePoster 
-          key={poster.imdbID}
-          poster={poster}/>
-        )}
-      </div>
+      {searchResult && <div className="App-posters">
+        {searchResult.map((poster) => <MoviePoster key={poster.imdbID} poster={poster}/>)}
+      </div>}
 
 
       <Route path="/library/">
-        <MovieLibrary />
+        <MovieLibrary backRefresh={findMovies}/>
       </Route>
     </div>
   );

@@ -12,23 +12,25 @@ const MoviePoster = ({ poster }) => {
     //----------------------------------------------------------------
     //Components functions
     //----------------------------------------------------------------
+    //Changes between liked and disliked movie
     const toggleFavorite = () => {
         if(isFavorite) 
             setCookies('favorites', cookies.favorites.filter(fav => poster.imdbID !== fav.imdbID), { path: '/'})
         else 
             if(cookies.favorites)
-                setCookies('favorites', [...cookies.favorites, {imdbID: poster.imdbID}], { path: '/'})
+                setCookies('favorites', [...cookies.favorites, {imdbID: poster.imdbID, rate: 0, watched: false}], { path: '/'})
             else 
-                setCookies('favorites', [{imdbID: poster.imdbID}], { path: '/'})
+                setCookies('favorites', [{imdbID: poster.imdbID, rate: 0, watched: false}], { path: '/'})
         
         setIsFavorite(!isFavorite)
     }
 
+    //----------------------------------------------------------------
     useEffect(() => {
         if(cookies.favorites) 
-            cookies.favorites.map(fav => poster.imdbID === fav.imdbID && setIsFavorite(true)) // eslint-disable-next-line react-hooks/exhaustive-deps
+            cookies.favorites.map(fav => 
+                poster.imdbID === fav.imdbID && setIsFavorite(true)) // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []) 
-
     //----------------------------------------------------------------
     return(
         <div className="MoviePoster">

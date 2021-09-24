@@ -24,7 +24,7 @@
 
 .App-library:hover {
     cursor: pointer;
-    transform: var(--icon-tranform-hover);
+    transform: var(--icon-transform-hover);
     opacity: var(--icon-opacity-a);
 }
 
@@ -36,12 +36,16 @@
 
 .App-search >* {
     margin: 5px;
-    font-size: 1.25em;
+    font-size: 1.5em;
 }
 
 .App-search input {
     width: 80%;
     max-width: 220px;
+}
+
+.App-search button:hover {
+    cursor: pointer;
 }
 
 .App-posters {

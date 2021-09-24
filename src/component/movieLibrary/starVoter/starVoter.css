@@ -1,0 +1,14 @@
+.StarVoter {
+    display: flex;
+}
+
+.StarVoter-star {
+    cursor: pointer;
+    color: var(--icon-color);
+    opacity: var(--icon-opacity-b);
+}
+
+.StarVoter-star:hover{
+    opacity: var(--icon-opacity-a);
+    transform: var(--icon-transform-hover)
+}
