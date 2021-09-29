@@ -46,13 +46,15 @@ function App() {
         <IoLibrary className="App-library" size={'60px'}/>
       </Link>
 
-      <div className="App-search">
+      <div className="App-search"
+      onKeyPress={(e) => e.code === "Enter" && findMovies()}>
         <input type="text"
         placeholder="Enter movie's title"
         value={title}
         onChange={e => setTitle(e.target.value)}/>
 
-        <button onClick={() => findMovies()}>
+        <button 
+        onClick={() => findMovies()}>
           search
         </button>
       </div>
